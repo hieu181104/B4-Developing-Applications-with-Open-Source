@@ -53,7 +53,6 @@ Cách hoạt động:
 - Node WordPress sử dụng API để đăng bài viết
 - Bài viết xuất hiện trực tiếp trên website WordPress
 
-
 ---
 
 ## 2. CÁC BƯỚC THỰC HIỆN
