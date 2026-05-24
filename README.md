@@ -127,7 +127,7 @@ docker compose ps
 
 ### Bước 4: Tạo bài viết trên Wordpress
 
-#### Bài viết giới thiệu bản thân
+#### Bước 4.1. Bài viết giới thiệu bản thân
 
 ##### Bài viết 1: đã thực hiện ở bài tập 3
 <img width="3069" height="1741" alt="image" src="https://github.com/user-attachments/assets/96de0fd2-5869-4e07-9986-32313dcea0b2" />
@@ -135,7 +135,7 @@ docker compose ps
 ##### Bài viết 2: sử dụng html
 <img width="3071" height="1736" alt="image" src="https://github.com/user-attachments/assets/a592c25c-7537-43bc-b239-2e152cf93dba" />
 
-#### Bài viết giới thiệu những kiến thức đã học được ở môn học Phát triển ứng dụng với mã nguồn mở
+#### Bước 4.2. Bài viết giới thiệu những kiến thức đã học được ở môn học Phát triển ứng dụng với mã nguồn mở
 
 <img width="3071" height="1745" alt="image" src="https://github.com/user-attachments/assets/66cfc697-7aa3-4545-9071-7f64b29710ec" />
 
@@ -143,6 +143,29 @@ docker compose ps
 
 ### Bước 5: Cấu hình n8n
 
+#### Truy cập subdomain `https://n8n.nguyentrunghiieu.id.vn/` để tạo tài khoản và kích hoạt license
+##### Điền các thông tin , đặc biệt email cần chính xác -> Next
+
+<img width="3064" height="1741" alt="image" src="https://github.com/user-attachments/assets/d46620e7-ac2e-4584-b0e5-8a62392f4e46" />
+
+##### Chọn `Send me a free license key`
+
+<img width="3068" height="1745" alt="image" src="https://github.com/user-attachments/assets/8224bd35-35c2-409c-a540-898fa7b71a2d" />
+
+##### Trong Usage and plan -> Enter Activation Key -> Nhập Key lấy từ email -> Activate
+
+<img width="3070" height="1735" alt="Screenshot 2026-05-24 100716" src="https://github.com/user-attachments/assets/da866e3b-8106-460a-ad6b-40392fa0ad45" />
+
+#####  Nhận thông báo thành công: 
+<img width="3067" height="1736" alt="image" src="https://github.com/user-attachments/assets/c6892a15-b190-4b33-9786-580269696d2a" />
+
+#### Tạo workflow
+##### Chọn Home page -> Overview -> New workflow
+
+<img width="3067" height="1751" alt="image" src="https://github.com/user-attachments/assets/89b96aba-3b78-4eeb-aeb0-b220a00df6d2" />
+
+##### Tạo thành công:
+<img width="3071" height="1739" alt="image" src="https://github.com/user-attachments/assets/b52b321e-269f-4f6b-a501-aa2787ac2879" />
 
 
 ---
