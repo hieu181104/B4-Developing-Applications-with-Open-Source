@@ -312,9 +312,61 @@ Nút này thực hiện việc xuất bản flow <=> flow sẽ tự động th�
 ---
 
 ## 3. KẾT QUẢ ĐẠT ĐƯỢC
+### 3.1. Kết quả demo
+#### Chat với tele bot với yêu cầu : `Viết cho tôi một bài viết giới thiệu các quán ăn nổi tiếng ở Hà Nội, Việt Nam`
+
+<img width="3066" height="1590" alt="image" src="https://github.com/user-attachments/assets/b0636b80-5d4a-4cd7-a765-c8083544811d" />
+
+#### Flow n8n:
+
+<img width="3071" height="1672" alt="image" src="https://github.com/user-attachments/assets/f5800ca1-b884-4b2b-a57f-f4bea5e97e0e" />
+
+#### Bài đăng trên Wordpress
+
+<img width="3071" height="1838" alt="image" src="https://github.com/user-attachments/assets/5903968a-c4c6-4d77-bc42-c32f06d49104" />
+
+### 3.2. Thực hiện yêu cầu mới
+#### Chat với bot: `Viết cho tôi một bài viết về các ngành học hot nhất năm 2025.`
+
+<img width="3071" height="1601" alt="image" src="https://github.com/user-attachments/assets/cc1c369e-693d-4a01-886b-f4f4b8af453d" />
+
+#### Bài viết trên wordpress:
+
+<img width="3072" height="1920" alt="image" src="https://github.com/user-attachments/assets/8833846d-e07c-4e07-b25d-32b659b32e15" />
 
 ---
 
 ## 4. NHẬN XÉT
+
+### 4.1. Quy trình vận hành hệ thống
+
+Hệ thống hoạt động theo mô hình khép kín tự động hóa hoàn toàn:
+
+- Yêu cầu đầu vào: Người dùng gửi yêu cầu viết bài bằng tiếng Việt qua Telegram Bot của cá nhân.
+
+- Kích hoạt & Xử lý: Node Telegram Trigger trên n8n nhận tin nhắn và chuyển tiếp tới Google Gemini AI.
+
+- Sinh nội dung: Gemini AI nhận diện ngữ cảnh, tự động thiết kế bài viết chuẩn định dạng HTML/CSS và đóng gói dưới dạng cấu trúc JSON.
+
+- Lọc dữ liệu: Node Code JavaScript lọc sạch các ký tự markdown thừa, chuẩn hóa hai trường dữ liệu title và content.
+
+- Xuất bản: Node WordPress kết nối qua Application Password bảo mật, tự động tạo và xuất bản bài viết trực tiếp lên website.
+
+### 4.2. Những điều đã đạt được & Kiến thức tích lũy
+
+- Triển khai hạ tầng Container: Làm chủ kỹ thuật cấu trúc file docker-compose.yml để chạy đồng thời nhiều service liên kết chặt chẽ (MariaDB, WordPress, phpMyAdmin, n8n, Cloudflared).
+
+- Tự động hóa & Tích hợp AI: Làm quen với nền tảng n8n, cách xây dựng kịch bản (workflow) tích hợp các API hiện đại như Telegram API, Google Gemini API và WordPress Rest API.
+
+- Xử lý dữ liệu: Ứng dụng JavaScript cơ bản để xử lý, làm sạch chuỗi và phân tích cú pháp (parse JSON) thực tế, khắc phục triệt để lỗi phân quyền (permission) dữ liệu trong Docker.
+
+### 4.3. Những vấn đề tồn tại & Hướng phát triển
+
+Tính ổn định của AI: Đôi khi Gemini AI có thể phản hồi sai cấu trúc JSON mong muốn dẫn đến lỗi phân tích cú pháp ở node JS (đã được khắc phục tạm thời bằng mã xử lý lỗi nâng cao).
+
+Quản lý tài nguyên: Việc chạy nhiều service nặng trên môi trường ảo hóa Ubuntu cần được tối ưu cấu hình để tránh hiện tượng tràn RAM.
+
+Hướng phát triển: Tích hợp thêm AI tạo ảnh (như Imagen) để tự động sinh ảnh đại diện (Featured Image) cho bài viết WordPress giúp bài đăng sinh động hơn.
+
 
 ---
