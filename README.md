@@ -143,7 +143,7 @@ docker compose ps
 
 ### Bước 5: Cấu hình n8n
 
-#### Truy cập subdomain `https://n8n.nguyentrunghiieu.id.vn/` để tạo tài khoản và kích hoạt license
+#### Bước 5.1. Truy cập subdomain `https://n8n.nguyentrunghiieu.id.vn/` để tạo tài khoản và kích hoạt license
 ##### Điền các thông tin , đặc biệt email cần chính xác -> Next
 
 <img width="3064" height="1741" alt="image" src="https://github.com/user-attachments/assets/d46620e7-ac2e-4584-b0e5-8a62392f4e46" />
@@ -159,13 +159,82 @@ docker compose ps
 #####  Nhận thông báo thành công: 
 <img width="3067" height="1736" alt="image" src="https://github.com/user-attachments/assets/c6892a15-b190-4b33-9786-580269696d2a" />
 
-#### Tạo workflow
+#### Bước 5.2. Tạo workflow
 ##### Chọn Home page -> Overview -> New workflow
 
 <img width="3067" height="1751" alt="image" src="https://github.com/user-attachments/assets/89b96aba-3b78-4eeb-aeb0-b220a00df6d2" />
 
 ##### Tạo thành công:
 <img width="3071" height="1739" alt="image" src="https://github.com/user-attachments/assets/b52b321e-269f-4f6b-a501-aa2787ac2879" />
+
+#### Bước 5.3. Tạo Telegram Bot
+
+Mở Telegram và tìm kiếm `BotFather` có tích xanh chính chủ
+
+#####  Bấm `/start`
+
+<img width="3071" height="1603" alt="image" src="https://github.com/user-attachments/assets/583bf7f1-a807-4d5c-b3bf-c29bfafec628" />
+
+##### Nhập lệnh `/newbot`
+
+<img width="3071" height="1598" alt="image" src="https://github.com/user-attachments/assets/59619711-d003-46e9-a3a5-c50e9c9a2fe8" />
+
+##### Đặt tên cho bot `Bot_n8n_wordpress`
+##### Đặt usename cho bot, bắt buộc kết thúc bằng `bot` (`trunghieu_n8n_bot`)
+##### Copy token HTTP API (màu vàng, 8825085837:AAEMXOaUr4t3VdfMr3gHMr3tNvaoqKQ8h5Q)
+
+<img width="3070" height="1601" alt="image" src="https://github.com/user-attachments/assets/6a222994-d73b-4d49-acce-50f5be5d157e" />
+
+##### Chat với bot mới lần đầu:
+
+<img width="3071" height="1597" alt="image" src="https://github.com/user-attachments/assets/1e1e6f44-293c-455a-96c2-755666c13574" />
+
+#### Bước 5.4. Cấu hình node Telegram trong workflow
+
+##### Add trigger node: tìm node: Telegram -> OnMessage ; cấu hình Credential: Set up Credential -> cần Nhập Access Token
+
+<img width="3071" height="1590" alt="image" src="https://github.com/user-attachments/assets/f1e60ab7-2a12-494c-a199-4933a68b1ecd" />
+
+##### Dán token HTTP API từ BotFather gửi -> Save
+
+<img width="3070" height="1592" alt="image" src="https://github.com/user-attachments/assets/5c9dbd36-901e-49cd-bec5-00caeeee4732" />
+
+##### Nhấn Test this trigger để kiểm tra, vào Telegram Bot vừa tạo rồi gửi bất kỳ `helo bot`
+
+<img width="3065" height="1589" alt="image" src="https://github.com/user-attachments/assets/6a136039-9228-46db-87c1-ef457ff4c6ec" />
+
+##### Nếu kết nối thành công, output của node sẽ hiện nội dung 
+<img width="3068" height="1592" alt="image" src="https://github.com/user-attachments/assets/311928f5-67a1-4a58-8ef9-490b1e5d5f57" />
+
+#### Bước 5.5. Cấu hình node AI Google Gemini
+
+##### Add (nối tiếp vào sau node Telegram Trigger) node: Google Gemini => Message a model
+
+<img width="3071" height="1598" alt="Screenshot 2026-05-24 104815" src="https://github.com/user-attachments/assets/5e15077b-f30c-4770-8c7a-823818463078" />
+
+##### Thực hiện Set up Credential -> Cần nhập Token API Key
+- Lấy API KEY tại trang: https://aistudio.google.com => https://aistudio.google.com/api-keys
+- Tạo project mới, rồi tạo API KEY
+
+<img width="3067" height="1595" alt="image" src="https://github.com/user-attachments/assets/c450704b-2b01-4cbd-aaa7-ec5be507ed8a" />
+
+- Nhập API key lên giao diện setup trong n8n rồi nhấn save.
+
+<img width="3071" height="1595" alt="image" src="https://github.com/user-attachments/assets/74d1040a-ea5c-4db1-89e7-a7279b8e6bd8" />
+
+- Kéo thả nội dung đã chát với bot của telegram (phía bên trái) vào nội dung phần PROMPT kết quả được {{ $json.message.text }}, cần gõ thêm vào sau {{ $json.message.text }} để promt dài hơn
+
+```
+{{ $json.message.text }}.Kết quả sinh ra ở định dạng HTML+CSS để tôi dùng HTML+CSS này tạo bài viết cho wordpress.
+Trả về JSON với 2 trường:
+- post_title
+- post_content
+```
+- Turn on Output Content as JSON : để kết quả trả về dạng json
+
+<img width="3071" height="1598" alt="image" src="https://github.com/user-attachments/assets/d75fc7dc-7512-4fb9-bf4e-7a2f44f391ca" />
+
+#### Bước 5.6. Cấu hình node Code in JavaSript
 
 
 ---
