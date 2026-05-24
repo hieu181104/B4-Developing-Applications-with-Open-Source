@@ -180,7 +180,7 @@ Mở Telegram và tìm kiếm `BotFather` có tích xanh chính chủ
 
 ##### Đặt tên cho bot `Bot_n8n_wordpress`
 ##### Đặt usename cho bot, bắt buộc kết thúc bằng `bot` (`trunghieu_n8n_bot`)
-##### Copy token HTTP API (màu vàng, 8825085837:AAEMXOaUr4t3VdfMr3gHMr3tNvaoqKQ8h5Q)
+##### Copy token HTTP API
 
 <img width="3070" height="1601" alt="image" src="https://github.com/user-attachments/assets/6a222994-d73b-4d49-acce-50f5be5d157e" />
 
