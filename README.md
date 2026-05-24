@@ -236,6 +236,78 @@ Trả về JSON với 2 trường:
 
 #### Bước 5.6. Cấu hình node Code in JavaSript
 
+- Add (nối tiếp vào sau node Message a model) node: Code in JavaScript
+- Dán code sau:
+```
+// 1. lấy dữ liệu gốc
+const rawText = $input.first().json.content.parts[0].text;
+
+// 2. Làm sạch chuỗi JSON (Xóa bỏ các ký tự markdown ```json hoặc ``` nếu AI vô tình sinh ra)
+let cleanText = rawText.trim();
+
+// Xóa đoạn ```json ở đầu nếu có
+if (cleanText.startsWith("```json")) {
+  cleanText = cleanText.substring(7);
+} else if (cleanText.startsWith("```")) {
+  cleanText = cleanText.substring(3);
+}
+
+// Xóa đoạn ``` ở cuối nếu có
+if (cleanText.endsWith("```")) {
+  cleanText = cleanText.substring(0, cleanText.length - 3);
+}
+
+cleanText = cleanText.trim();
+
+// 3. Chuyển đổi chuỗi thành Object trong JavaScript
+const cleanData = JSON.parse(cleanText);
+
+// 4. Trả về kết quả định dạng lại gọn gàng cho node WordPress sử dụng
+return {
+  title: cleanData.post_title,
+  content: cleanData.post_content
+};
+```
+
+##### Test output node:
+<img width="3069" height="1606" alt="image" src="https://github.com/user-attachments/assets/a0e3bd15-cfef-4e28-b8f9-dc8a0ff43985" />
+
+#### Bước 5.7. Cấu hình node WordPress
+
+##### - Add (nối tiếp vào sau node Code in JavaScript) node: WordPress => Create a Post
+##### - Lấy "Mật khẩu ứng dụng" (Application Password) từ WordPress
+- Truy cập trang quản trị: `https://wordpress.nguyentrunghieu.id.vn/wp-admin`
+- Vào `Tài khoản` -> chọn user lúc thiết lập -> Mật khẩu ứng dụng -> Nhập tên `n8n` -> Thêm mật khẩu ứng dụng
+
+<img width="3071" height="1594" alt="image" src="https://github.com/user-attachments/assets/09e73403-6cde-4325-b56f-3fe8ab0b21a6" />
+
+<img width="2684" height="663" alt="image" src="https://github.com/user-attachments/assets/7a5c1b04-0a4b-479f-a0a6-d76d03752c4d" />
+
+#####  Copy mật khẩu rồi dán vào password của n8n credential, điền các thông tin -> save
+- Ignore SSL Issues (Insecure): TURN ON
+- Wordpress URL: điền giá trị `https://wordpress.nguyentrunghiieu.id.vn/` (subdomain1)
+
+<img width="3063" height="1597" alt="image" src="https://github.com/user-attachments/assets/9710475f-4b48-4572-8aff-978761a2e6fe" />
+
+##### Mapping dữ liệu
+- Kéo thả tiêu đề (Title): Nhìn sang cột dữ liệu bên trái của node JavaScript trước đó, bạn sẽ thấy cột title. Nhấp giữ chuột vào trường title này và kéo thả trực tiếp vào ô nhập liệu Title của node WordPress. (Nó sẽ tự động điền mã biểu thức dạng {{ $json.title }}).
+- Kéo thả nội dung (Content): Tương tự, nhấp giữ chuột vào trường content ở cột bên trái và kéo thả vào ô nhập liệu Content của node WordPress. (Nó sẽ tự động điền {{ $json.content }}).
+- Cấu hình Trạng thái xuất bản (Status):
+
+Nhấp vào nút Add Field (Thêm thuộc tính) ở cuối cấu hình.
+  - Chọn thuộc tính Status.
+  - Ở ô giá trị của Status, chọn là Publish (để bài viết hiển thị công khai trên web ngay lập tức thay vì nằm ở mục Bản nháp - Draft).
+
+<img width="3071" height="1600" alt="image" src="https://github.com/user-attachments/assets/ed0812b8-15b1-4a15-ad3f-3ca79d6b40b6" />
+
+##### Workflow hoàn chỉnh
+
+<img width="3071" height="1745" alt="image" src="https://github.com/user-attachments/assets/2f922b06-d298-4b02-8e7f-183e3ec5e422" />
+
+#### Bước 5.8. PUBLISH FLOW
+Nút này thực hiện việc xuất bản flow <=> flow sẽ tự động thực thi khi thoả mãn điều kiện trigger
+
+<img width="3062" height="1589" alt="image" src="https://github.com/user-attachments/assets/be6b955b-327b-46aa-9e9b-1d25a0edd643" />
 
 ---
 
